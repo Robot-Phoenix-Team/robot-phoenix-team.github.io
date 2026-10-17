@@ -299,6 +299,30 @@
         color: var(--primary);
       }
 
+      .sponsor-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .sponsor-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+      }
+
+      .sponsor-logo-slot {
+        width: 100%;
+        min-height: 96px;
+        border: 1px dashed var(--stroke);
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        background: var(--btn-secondary-bg);
+        font-weight: 600;
+      }
+
       .cta {
         margin: 2rem 0;
         border-radius: 18px;
@@ -336,7 +360,7 @@
         <div class="brand">
           <img
             id="brand-logo"
-            src="https://github.com/user-attachments/assets/a198f358-43fa-4910-aecb-f9feff541483"
+            src="https://github.com/user-attachments/assets/7b7473db-86ea-44d7-a024-55b5085e1562"
             alt="Logo de l'équipe Phoenix Vision Junior"
           />
           <span>Phoenix Vision Junior</span>
@@ -369,15 +393,12 @@
           </p>
           <div class="actions">
             <a class="btn btn-primary" href="#sponsors">Devenir sponsor</a>
-            <a class="btn btn-secondary" href="http://docspace-n79t7a.onlyoffice.com/"
-              >Voir nos documents</a
-            >
           </div>
         </div>
         <div class="hero-card">
           <img
             id="hero-logo"
-            src="https://github.com/user-attachments/assets/a198f358-43fa-4910-aecb-f9feff541483"
+            src="https://github.com/user-attachments/assets/7b7473db-86ea-44d7-a024-55b5085e1562"
             alt="Identité visuelle Phoenix Vision Junior"
           />
         </div>
@@ -505,32 +526,23 @@
             qui soutiennent Phoenix Vision Junior. Grâce à eux, nous finançons le
             matériel, les déplacements et l'entraînement.
           </p>
-          <div class="grid sponsors">
-            <article class="card">
-              <span class="sponsor-tier">Partenaire Phoenix</span>
-              <h3>Merci pour votre confiance</h3>
-              <p>
-                Votre soutien rend nos actions locales possibles et encourage les
-                jeunes à se lancer en robotique.
-              </p>
-            </article>
-            <article class="card">
-              <span class="sponsor-tier">Partenaire Performance</span>
-              <h3>Merci pour l'impact technique</h3>
-              <p>
-                Votre contribution améliore directement nos robots, nos capteurs
-                et notre préparation en compétition.
-              </p>
-            </article>
-            <article class="card">
-              <span class="sponsor-tier">Partenaire Vision</span>
-              <h3>Merci pour la vision partagée</h3>
-              <p>
-                Votre engagement à long terme nous aide à grandir et à inspirer
-                la prochaine génération.
-              </p>
-            </article>
-          </div>
+          <ul class="grid sponsors sponsor-list">
+            <li class="card sponsor-item">
+              <span class="sponsor-tier">Sponsor 1</span>
+              <div class="sponsor-logo-slot">Logo à venir</div>
+              <h3>Nom du sponsor à ajouter</h3>
+            </li>
+            <li class="card sponsor-item">
+              <span class="sponsor-tier">Sponsor 2</span>
+              <div class="sponsor-logo-slot">Logo à venir</div>
+              <h3>Nom du sponsor à ajouter</h3>
+            </li>
+            <li class="card sponsor-item">
+              <span class="sponsor-tier">Sponsor 3</span>
+              <div class="sponsor-logo-slot">Logo à venir</div>
+              <h3>Nom du sponsor à ajouter</h3>
+            </li>
+          </ul>
           <div class="cta" id="contact">
             <h3>Merci pour votre soutien à Phoenix Vision Junior</h3>
             <p>
@@ -538,6 +550,11 @@
               <strong>contact@phoenixvisionjunior.fr</strong> pour remercier nos
               partenaires et accueillir de nouveaux soutiens.
             </p>
+            <div class="actions">
+              <a class="btn btn-secondary" href="http://docspace-n79t7a.onlyoffice.com/"
+                >Accéder aux documents</a
+              >
+            </div>
           </div>
         </div>
       </section>
@@ -549,8 +566,8 @@
       </div>
     </footer>
     <script>
-      const darkLogo = "https://github.com/user-attachments/assets/a198f358-43fa-4910-aecb-f9feff541483";
-      const lightLogo = "https://github.com/user-attachments/assets/b29289e0-2b4b-4e6f-b41c-ecc31b121c0c";
+      const darkLogo = "https://github.com/user-attachments/assets/7b7473db-86ea-44d7-a024-55b5085e1562";
+      const lightLogo = "https://github.com/user-attachments/assets/7b7473db-86ea-44d7-a024-55b5085e1562";
       const themeToggle = document.getElementById("theme-toggle");
       const logos = [document.getElementById("brand-logo"), document.getElementById("hero-logo")];
 
