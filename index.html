@@ -11,6 +11,7 @@
     <style>
       :root {
         --bg: #05070f;
+        --bg-radial-start: #1b2442;
         --surface: #0f1629;
         --surface-soft: #151f36;
         --text: #ecf0ff;
@@ -18,6 +19,24 @@
         --primary: #ff8a3d;
         --primary-2: #dd3f4e;
         --stroke: rgba(255, 255, 255, 0.12);
+        --topbar-bg: rgba(5, 7, 15, 0.75);
+        --btn-secondary-bg: rgba(255, 255, 255, 0.03);
+        --badge-bg: rgba(255, 255, 255, 0.04);
+      }
+
+      [data-theme="light"] {
+        --bg: #f4f6fb;
+        --bg-radial-start: #ffffff;
+        --surface: #ffffff;
+        --surface-soft: #eaf0ff;
+        --text: #1d2436;
+        --muted: #4f5f87;
+        --primary: #e96f2d;
+        --primary-2: #c73a43;
+        --stroke: rgba(22, 37, 78, 0.16);
+        --topbar-bg: rgba(255, 255, 255, 0.82);
+        --btn-secondary-bg: rgba(22, 37, 78, 0.04);
+        --badge-bg: rgba(22, 37, 78, 0.05);
       }
 
       * {
@@ -34,7 +53,8 @@
         font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
         line-height: 1.6;
         color: var(--text);
-        background: radial-gradient(circle at 20% 20%, #1b2442, var(--bg) 55%);
+        background: radial-gradient(circle at 20% 20%, var(--bg-radial-start), var(--bg) 55%);
+        transition: background 0.25s ease, color 0.25s ease;
       }
 
       a {
@@ -51,7 +71,7 @@
         top: 0;
         z-index: 50;
         backdrop-filter: blur(12px);
-        background: rgba(5, 7, 15, 0.75);
+        background: var(--topbar-bg);
         border-bottom: 1px solid var(--stroke);
       }
 
@@ -88,8 +108,24 @@
         color: var(--muted);
       }
 
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
       .nav-links a {
         text-decoration: none;
+      }
+
+      .theme-toggle {
+        border: 1px solid var(--stroke);
+        background: var(--btn-secondary-bg);
+        color: var(--text);
+        border-radius: 12px;
+        padding: 0.45rem 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
       }
 
       .hero {
@@ -111,7 +147,7 @@
         padding: 0.35rem 0.7rem;
         border-radius: 999px;
         border: 1px solid var(--stroke);
-        background: rgba(255, 255, 255, 0.04);
+        background: var(--badge-bg);
       }
 
       h1,
@@ -158,11 +194,11 @@
 
       .btn-secondary {
         border: 1px solid var(--stroke);
-        background: rgba(255, 255, 255, 0.03);
+        background: var(--btn-secondary-bg);
       }
 
       .hero-card {
-        background: linear-gradient(165deg, var(--surface), #0b1224);
+        background: linear-gradient(165deg, var(--surface), var(--surface-soft));
         border: 1px solid var(--stroke);
         border-radius: 20px;
         padding: 1rem;
@@ -182,7 +218,7 @@
       }
 
       .panel {
-        background: linear-gradient(160deg, rgba(21, 31, 54, 0.95), rgba(9, 14, 26, 0.95));
+        background: linear-gradient(160deg, var(--surface-soft), var(--surface));
         border: 1px solid var(--stroke);
         border-radius: 18px;
         padding: 1.3rem;
@@ -198,7 +234,7 @@
       }
 
       .stat {
-        background: rgba(255, 255, 255, 0.03);
+        background: var(--btn-secondary-bg);
         border: 1px solid var(--stroke);
         border-radius: 14px;
         padding: 0.9rem;
@@ -207,7 +243,7 @@
       .stat strong {
         display: block;
         font-size: 1.8rem;
-        color: #fff;
+        color: var(--text);
       }
 
       .leagues,
@@ -216,7 +252,7 @@
       }
 
       .card {
-        background: rgba(255, 255, 255, 0.03);
+        background: var(--btn-secondary-bg);
         border: 1px solid var(--stroke);
         border-radius: 14px;
         padding: 1rem;
@@ -240,7 +276,7 @@
       }
 
       .timeline .year {
-        color: #ffc38c;
+        color: var(--primary);
         font-weight: 700;
       }
 
@@ -260,15 +296,15 @@
         font-size: 0.75rem;
         letter-spacing: 0.5px;
         text-transform: uppercase;
-        color: #ffce95;
+        color: var(--primary);
       }
 
       .cta {
         margin: 2rem 0;
         border-radius: 18px;
         padding: 1.8rem;
-        background: linear-gradient(135deg, rgba(221, 63, 78, 0.27), rgba(255, 138, 61, 0.18));
-        border: 1px solid rgba(255, 153, 79, 0.35);
+        background: linear-gradient(135deg, rgba(221, 63, 78, 0.2), rgba(255, 138, 61, 0.12));
+        border: 1px solid rgba(255, 153, 79, 0.32);
       }
 
       footer {
@@ -286,6 +322,11 @@
         .timeline li {
           grid-template-columns: 1fr;
         }
+
+        .nav-right {
+          width: 100%;
+          justify-content: space-between;
+        }
       }
     </style>
   </head>
@@ -294,18 +335,24 @@
       <div class="container nav">
         <div class="brand">
           <img
+            id="brand-logo"
             src="https://github.com/user-attachments/assets/a198f358-43fa-4910-aecb-f9feff541483"
             alt="Logo de l'équipe Phoenix Vision Junior"
           />
           <span>Phoenix Vision Junior</span>
         </div>
-        <nav class="nav-links">
-          <a href="#equipe">Équipe</a>
-          <a href="#ligues">Ligues</a>
-          <a href="#parcours">Parcours</a>
-          <a href="#sponsors">Sponsors</a>
-          <a href="#contact">Contact</a>
-        </nav>
+        <div class="nav-right">
+          <nav class="nav-links">
+            <a href="#equipe">Équipe</a>
+            <a href="#ligues">Ligues</a>
+            <a href="#parcours">Parcours</a>
+            <a href="#sponsors">Sponsors</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Basculer le thème">
+            Mode clair
+          </button>
+        </div>
       </div>
     </div>
 
@@ -329,6 +376,7 @@
         </div>
         <div class="hero-card">
           <img
+            id="hero-logo"
             src="https://github.com/user-attachments/assets/a198f358-43fa-4910-aecb-f9feff541483"
             alt="Identité visuelle Phoenix Vision Junior"
           />
@@ -451,43 +499,44 @@
 
       <section id="sponsors" class="section">
         <div class="panel">
-          <h2>Section Sponsors</h2>
+          <h2>Merci à nos sponsors</h2>
           <p>
-            Votre soutien finance le matériel, les déplacements, les capteurs et
-            l'entraînement. Ensemble, nous accélérons l'accès des jeunes à la
-            robotique de haut niveau.
+            Cette section est dédiée à remercier les entreprises et partenaires
+            qui soutiennent Phoenix Vision Junior. Grâce à eux, nous finançons le
+            matériel, les déplacements et l'entraînement.
           </p>
           <div class="grid sponsors">
             <article class="card">
               <span class="sponsor-tier">Partenaire Phoenix</span>
-              <h3>Visibilité locale</h3>
+              <h3>Merci pour votre confiance</h3>
               <p>
-                Logo sur nos supports de communication et remerciements sur nos
-                réseaux.
+                Votre soutien rend nos actions locales possibles et encourage les
+                jeunes à se lancer en robotique.
               </p>
             </article>
             <article class="card">
               <span class="sponsor-tier">Partenaire Performance</span>
-              <h3>Impact technique</h3>
+              <h3>Merci pour l'impact technique</h3>
               <p>
-                Soutien direct à nos composants robotiques et mention sur les
-                présentations compétition.
+                Votre contribution améliore directement nos robots, nos capteurs
+                et notre préparation en compétition.
               </p>
             </article>
             <article class="card">
               <span class="sponsor-tier">Partenaire Vision</span>
-              <h3>Partenariat premium</h3>
+              <h3>Merci pour la vision partagée</h3>
               <p>
-                Co-création d'actions pédagogiques, visibilité renforcée et
-                rencontres avec l'équipe.
+                Votre engagement à long terme nous aide à grandir et à inspirer
+                la prochaine génération.
               </p>
             </article>
           </div>
           <div class="cta" id="contact">
-            <h3>Vous souhaitez nous sponsoriser ?</h3>
+            <h3>Merci pour votre soutien à Phoenix Vision Junior</h3>
             <p>
-              Écrivez-nous à <strong>contact@phoenixvisionjunior.fr</strong> pour
-              recevoir notre dossier sponsor complet.
+              Nous restons disponibles sur
+              <strong>contact@phoenixvisionjunior.fr</strong> pour remercier nos
+              partenaires et accueillir de nouveaux soutiens.
             </p>
           </div>
         </div>
@@ -499,5 +548,32 @@
         <p>&copy; 2026 Team Phoenix - RoboCup Junior • Tous droits réservés</p>
       </div>
     </footer>
+    <script>
+      const darkLogo = "https://github.com/user-attachments/assets/a198f358-43fa-4910-aecb-f9feff541483";
+      const lightLogo = "https://github.com/user-attachments/assets/b29289e0-2b4b-4e6f-b41c-ecc31b121c0c";
+      const themeToggle = document.getElementById("theme-toggle");
+      const logos = [document.getElementById("brand-logo"), document.getElementById("hero-logo")];
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+        const nextMode = theme === "dark" ? "clair" : "sombre";
+        themeToggle.textContent = `Mode ${nextMode}`;
+        const logoSrc = theme === "dark" ? darkLogo : lightLogo;
+        logos.forEach((logo) => {
+          logo.src = logoSrc;
+        });
+      }
+
+      const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const savedTheme = localStorage.getItem("theme");
+      const initialTheme = savedTheme || (systemPrefersDark ? "dark" : "light");
+      applyTheme(initialTheme);
+
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+        applyTheme(currentTheme === "dark" ? "light" : "dark");
+      });
+    </script>
   </body>
 </html>
