@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960" role="img" aria-labelledby="title desc">
+  <title id="title">Logo Phoenix Vision Junior</title>
+  <desc id="desc">Emblème stylisé d'un phoenix avec les initiales PVJ.</desc>
+  <defs>
+    <linearGradient id="phoenixGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb74d" />
+      <stop offset="100%" stop-color="#dd3f4e" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="960" rx="160" fill="#0f1629" />
+  <path
+    d="M260 664c84-36 144-100 169-174 27-79 12-153-44-222 88 30 151 99 174 189 24 89-3 182-73 255 77-20 142-78 176-153-5 115-78 212-188 250-77 26-162 21-234-15 8-46 20-86 20-130z"
+    fill="url(#phoenixGradient)"
+  />
+  <path
+    d="M468 312c23-63 73-117 137-142-30 48-41 102-32 158-24-20-56-25-105-16z"
+    fill="#ff9f43"
+  />
+  <text
+    x="480"
+    y="790"
+    text-anchor="middle"
+    fill="#ecf0ff"
+    font-family="Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+    font-size="118"
+    font-weight="700"
+    letter-spacing="10"
+  >
+    PVJ
+  </text>
+</svg>
