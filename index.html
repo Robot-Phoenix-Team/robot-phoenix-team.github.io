@@ -339,6 +339,15 @@
       }
 
       @media (max-width: 900px) {
+        .nav {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .brand {
+          justify-content: center;
+        }
+
         .hero-grid {
           grid-template-columns: 1fr;
         }
@@ -349,7 +358,38 @@
 
         .nav-right {
           width: 100%;
-          justify-content: space-between;
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .nav-links {
+          justify-content: center;
+        }
+
+        .theme-toggle {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          width: min(1160px, 94%);
+        }
+
+        .hero {
+          padding: 2.8rem 0 1.8rem;
+        }
+
+        .panel {
+          padding: 1rem;
+        }
+
+        .gallery img {
+          height: 180px;
+        }
+
+        .cta {
+          padding: 1.3rem;
         }
       }
     </style>
@@ -391,9 +431,6 @@
             Z (mécanique, électronique, IA embarquée) pour performer en
             compétition et inspirer d'autres jeunes.
           </p>
-          <div class="actions">
-            <a class="btn btn-primary" href="#sponsors">Devenir sponsor</a>
-          </div>
         </div>
         <div class="hero-card">
           <img
