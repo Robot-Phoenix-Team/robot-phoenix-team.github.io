@@ -3,198 +3,501 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Phoenix Vision Junior - RoboCup</title>
+    <meta
+      name="description"
+      content="Phoenix Vision Junior, équipe RoboCup Junior en ligue Soccer : innovation robotique, performances et aventure collective."
+    />
+    <title>Phoenix Vision Junior | RoboCup Soccer Team</title>
     <style>
       :root {
-        color-scheme: light;
+        --bg: #05070f;
+        --surface: #0f1629;
+        --surface-soft: #151f36;
+        --text: #ecf0ff;
+        --muted: #b7c4e5;
+        --primary: #ff8a3d;
+        --primary-2: #dd3f4e;
+        --stroke: rgba(255, 255, 255, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
       }
 
       body {
-        margin: 0;
-        font-family: Arial, sans-serif;
+        font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
         line-height: 1.6;
-        color: #1b1b1b;
-        background: #f4f6fb;
+        color: var(--text);
+        background: radial-gradient(circle at 20% 20%, #1b2442, var(--bg) 55%);
+      }
+
+      a {
+        color: inherit;
       }
 
       .container {
-        max-width: 960px;
+        width: min(1160px, 92%);
         margin: 0 auto;
-        padding: 1.5rem;
       }
 
-      header {
-        background: linear-gradient(135deg, #1f3f8c, #2086f7);
-        color: #fff;
-        text-align: center;
-        padding: 4rem 1.5rem;
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(12px);
+        background: rgba(5, 7, 15, 0.75);
+        border-bottom: 1px solid var(--stroke);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.9rem 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+
+      .brand img {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        object-fit: cover;
+        background: #fff;
+        padding: 3px;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .nav-links a {
+        text-decoration: none;
+      }
+
+      .hero {
+        padding: 4rem 0 2.5rem;
+      }
+
+      .hero-grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: center;
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+        padding: 0.35rem 0.7rem;
+        border-radius: 999px;
+        border: 1px solid var(--stroke);
+        background: rgba(255, 255, 255, 0.04);
       }
 
       h1,
-      h2 {
+      h2,
+      h3 {
+        line-height: 1.2;
         margin-top: 0;
       }
 
-      section {
+      h1 {
+        font-size: clamp(2rem, 4.2vw, 3.5rem);
+        margin: 0.9rem 0;
+      }
+
+      .hero p {
+        color: var(--muted);
+        max-width: 56ch;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        transition: transform 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        color: #111;
+        background: linear-gradient(135deg, #ffb74d, var(--primary));
+      }
+
+      .btn-secondary {
+        border: 1px solid var(--stroke);
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .hero-card {
+        background: linear-gradient(165deg, var(--surface), #0b1224);
+        border: 1px solid var(--stroke);
+        border-radius: 20px;
+        padding: 1rem;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      }
+
+      .hero-card img {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: contain;
+        border-radius: 14px;
         background: #fff;
-        border-radius: 10px;
-        padding: 1.5rem;
-        margin-top: 1rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+
+      .section {
+        padding: 1.1rem 0 0.8rem;
+      }
+
+      .panel {
+        background: linear-gradient(160deg, rgba(21, 31, 54, 0.95), rgba(9, 14, 26, 0.95));
+        border: 1px solid var(--stroke);
+        border-radius: 18px;
+        padding: 1.3rem;
       }
 
       .grid {
         display: grid;
         gap: 1rem;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .stats {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      }
+
+      .stat {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--stroke);
+        border-radius: 14px;
+        padding: 0.9rem;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.8rem;
+        color: #fff;
+      }
+
+      .leagues,
+      .sponsors {
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       }
 
       .card {
-        background: #f8fbff;
-        border: 1px solid #dce8ff;
-        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--stroke);
+        border-radius: 14px;
         padding: 1rem;
       }
 
-      .results {
-        padding-left: 1.2rem;
+      .card h3 {
+        margin-bottom: 0.35rem;
+      }
+
+      .timeline {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .timeline li {
+        display: grid;
+        grid-template-columns: 124px 1fr;
+        gap: 0.8rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .timeline .year {
+        color: #ffc38c;
+        font-weight: 700;
       }
 
       .gallery {
-        display: grid;
-        gap: 0.8rem;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       }
 
       .gallery img {
         width: 100%;
-        border-radius: 8px;
-        display: block;
-        border: 1px solid #dce8ff;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 14px;
+        border: 1px solid var(--stroke);
+      }
+
+      .sponsor-tier {
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: #ffce95;
+      }
+
+      .cta {
+        margin: 2rem 0;
+        border-radius: 18px;
+        padding: 1.8rem;
+        background: linear-gradient(135deg, rgba(221, 63, 78, 0.27), rgba(255, 138, 61, 0.18));
+        border: 1px solid rgba(255, 153, 79, 0.35);
       }
 
       footer {
+        margin-top: 2rem;
+        padding: 1.4rem 0 2rem;
+        color: var(--muted);
         text-align: center;
-        color: #4a4a4a;
-        padding: 2rem 1rem;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .timeline li {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Phoenix Vision Junior</h1>
-      <p>Équipe RoboCup Junior - passion, innovation et esprit d'équipe</p>
+    <div class="topbar">
+      <div class="container nav">
+        <div class="brand">
+          <img
+            src="https://github.com/user-attachments/assets/a198f358-43fa-4910-aecb-f9feff541483"
+            alt="Logo de l'équipe Phoenix Vision Junior"
+          />
+          <span>Phoenix Vision Junior</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#equipe">Équipe</a>
+          <a href="#ligues">Ligues</a>
+          <a href="#parcours">Parcours</a>
+          <a href="#sponsors">Sponsors</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">RoboCup Junior • Ligue Soccer</span>
+          <h1>Concevoir, coder et faire gagner des robots 100% autonomes.</h1>
+          <p>
+            Phoenix Vision Junior est une équipe passionnée qui transforme la
+            robotique en aventure collective. Nous développons nos robots de A à
+            Z (mécanique, électronique, IA embarquée) pour performer en
+            compétition et inspirer d'autres jeunes.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#sponsors">Devenir sponsor</a>
+            <a class="btn btn-secondary" href="http://docspace-n79t7a.onlyoffice.com/"
+              >Voir nos documents</a
+            >
+          </div>
+        </div>
+        <div class="hero-card">
+          <img
+            src="https://github.com/user-attachments/assets/a198f358-43fa-4910-aecb-f9feff541483"
+            alt="Identité visuelle Phoenix Vision Junior"
+          />
+        </div>
+      </div>
     </header>
 
     <main class="container">
-      <section>
-        <h2>Qui sommes-nous ?</h2>
-        <p>
-          Depuis trois ans, nous participons à la RoboCup Junior, une
-          compétition internationale qui promeut la robotique chez les jeunes.
-          Nous y développons des robots entièrement autonomes en combinant
-          conception mécanique, électronique et programmation.
-        </p>
-      </section>
-
-      <section>
-        <h2>Les ligues RoboCup Junior</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Rescue Line</h3>
-            <p>
-              Suivi de ligne avec obstacles pour simuler une mission de
-              sauvetage.
-            </p>
-          </article>
-          <article class="card">
-            <h3>On Stage</h3>
-            <p>Création d'un spectacle mêlant arts et robotique.</p>
-          </article>
-          <article class="card">
-            <h3>Discovery</h3>
-            <p>Version On Stage adaptée aux plus jeunes.</p>
-          </article>
-          <article class="card">
-            <h3>Soccer</h3>
-            <p>
-              Match autonome entre deux équipes de 2 robots, notre catégorie
-              de prédilection.
-            </p>
-          </article>
-        </div>
-        <p>
-          Nous concourons en ligue Soccer aux niveaux régional et national avec
-          des robots entièrement conçus et codés par notre équipe.
-        </p>
-      </section>
-
-      <section>
-        <h2>Notre parcours en ligue Soccer</h2>
-        <ul class="results">
-          <li>2ème place – Open Île-de-France 2024</li>
-          <li>4ème place et prix enthousiasme – Open France 2024</li>
-          <li>4ème place – Open Île-de-France 2025</li>
-          <li>2ème place – Open Île-de-France 2026</li>
-          <li>2ème place – Open France 2026</li>
-        </ul>
-        <p>
-          Nous terminons régulièrement juste derrière le lycée Louis-Le-Grand,
-          avec un écart qui se réduit chaque année. Notre objectif est de les
-          dépasser cette saison avec votre soutien.
-        </p>
-      </section>
-
-      <section>
-        <h2>Pourquoi ce projet nous tient à cœur</h2>
-        <p>
-          Au-delà de la compétition, la RoboCup Junior est un projet
-          pédagogique fondé sur la coopération, le travail d'équipe et
-          l'apprentissage par projet.
-        </p>
-      </section>
-
-      <section>
-        <h2>Galerie</h2>
-        <div class="gallery">
-          <img
-            src="https://github.com/user-attachments/assets/7d8ae2b2-b36c-49df-a71c-1d05ecb1c37e"
-            alt="Équipe Phoenix Vision Junior sur le terrain de RoboCup Soccer"
-          />
-          <img
-            src="https://github.com/user-attachments/assets/e6f4ce90-726c-4437-8801-39cef858a81c"
-            alt="Photo de l'équipe lors d'une compétition RoboCup Junior"
-          />
-          <img
-            src="https://github.com/user-attachments/assets/781557be-973d-4392-82de-974f3602e8d4"
-            alt="Robot Soccer autonome en action pendant la RoboCup Junior"
-          />
-          <img
-            src="https://github.com/user-attachments/assets/d45f259f-e6c3-4e42-87af-79407339f0ca"
-            alt="Préparation stratégique de l'équipe avant un match RoboCup"
-          />
+      <section id="equipe" class="section">
+        <div class="panel">
+          <h2>Qui sommes-nous ?</h2>
+          <p>
+            Depuis trois ans, nous participons à la RoboCup Junior, une
+            compétition internationale qui forme les jeunes à l'innovation, à la
+            résolution de problèmes et au travail d'équipe.
+          </p>
+          <div class="grid stats">
+            <article class="stat">
+              <strong>3+</strong>
+              <span>années d'expérience RoboCup</span>
+            </article>
+            <article class="stat">
+              <strong>100%</strong>
+              <span>robots conçus et codés par l'équipe</span>
+            </article>
+            <article class="stat">
+              <strong>5</strong>
+              <span>podiums/résultats majeurs récents</span>
+            </article>
+            <article class="stat">
+              <strong>1</strong>
+              <span>objectif : le titre national 2027</span>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section>
-        <h2>Nos objectifs 2027</h2>
-        <ul>
-          <li>Continuer à améliorer nos robots Soccer autonomes.</li>
-          <li>Gagner l'Open Île-de-France puis viser le titre national.</li>
-          <li>Partager notre aventure et inspirer d'autres jeunes.</li>
-        </ul>
+      <section id="ligues" class="section">
+        <div class="panel">
+          <h2>Les ligues RoboCup Junior</h2>
+          <div class="grid leagues">
+            <article class="card">
+              <h3>Rescue Line</h3>
+              <p>Suivi de ligne autonome avec obstacles et missions de sauvetage.</p>
+            </article>
+            <article class="card">
+              <h3>On Stage</h3>
+              <p>Spectacle créatif mêlant robotique, narration et performance.</p>
+            </article>
+            <article class="card">
+              <h3>Discovery</h3>
+              <p>Format initiation pour découvrir la robotique en équipe.</p>
+            </article>
+            <article class="card">
+              <h3>Soccer (notre spécialité)</h3>
+              <p>
+                Match autonome de robots, vitesse de décision et stratégie en
+                temps réel.
+              </p>
+            </article>
+          </div>
+        </div>
       </section>
 
-      <section>
-        <h2>Nos documents</h2>
-        <p>
-          <a href="http://docspace-n79t7a.onlyoffice.com/">Accéder à notre espace de documents</a>
-        </p>
+      <section id="parcours" class="section">
+        <div class="panel">
+          <h2>Notre parcours en ligue Soccer</h2>
+          <ul class="timeline">
+            <li>
+              <span class="year">2024</span>
+              <span>2ème place – Open Île-de-France</span>
+            </li>
+            <li>
+              <span class="year">2024</span>
+              <span>4ème place & prix enthousiasme – Open France</span>
+            </li>
+            <li>
+              <span class="year">2025</span>
+              <span>4ème place – Open Île-de-France</span>
+            </li>
+            <li>
+              <span class="year">2026</span>
+              <span>2ème place – Open Île-de-France</span>
+            </li>
+            <li>
+              <span class="year">2026</span>
+              <span>2ème place – Open France</span>
+            </li>
+          </ul>
+          <p>
+            Nous progressons chaque saison avec une ambition claire :
+            transformer notre régularité en victoire nationale.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="panel">
+          <h2>Galerie terrain</h2>
+          <div class="grid gallery">
+            <img
+              src="https://github.com/user-attachments/assets/7d8ae2b2-b36c-49df-a71c-1d05ecb1c37e"
+              alt="Équipe Phoenix Vision Junior sur le terrain de RoboCup Soccer"
+            />
+            <img
+              src="https://github.com/user-attachments/assets/e6f4ce90-726c-4437-8801-39cef858a81c"
+              alt="Photo de l'équipe lors d'une compétition RoboCup Junior"
+            />
+            <img
+              src="https://github.com/user-attachments/assets/781557be-973d-4392-82de-974f3602e8d4"
+              alt="Robot Soccer autonome en action pendant la RoboCup Junior"
+            />
+            <img
+              src="https://github.com/user-attachments/assets/d45f259f-e6c3-4e42-87af-79407339f0ca"
+              alt="Préparation stratégique de l'équipe avant un match RoboCup"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section id="sponsors" class="section">
+        <div class="panel">
+          <h2>Section Sponsors</h2>
+          <p>
+            Votre soutien finance le matériel, les déplacements, les capteurs et
+            l'entraînement. Ensemble, nous accélérons l'accès des jeunes à la
+            robotique de haut niveau.
+          </p>
+          <div class="grid sponsors">
+            <article class="card">
+              <span class="sponsor-tier">Partenaire Phoenix</span>
+              <h3>Visibilité locale</h3>
+              <p>
+                Logo sur nos supports de communication et remerciements sur nos
+                réseaux.
+              </p>
+            </article>
+            <article class="card">
+              <span class="sponsor-tier">Partenaire Performance</span>
+              <h3>Impact technique</h3>
+              <p>
+                Soutien direct à nos composants robotiques et mention sur les
+                présentations compétition.
+              </p>
+            </article>
+            <article class="card">
+              <span class="sponsor-tier">Partenaire Vision</span>
+              <h3>Partenariat premium</h3>
+              <p>
+                Co-création d'actions pédagogiques, visibilité renforcée et
+                rencontres avec l'équipe.
+              </p>
+            </article>
+          </div>
+          <div class="cta" id="contact">
+            <h3>Vous souhaitez nous sponsoriser ?</h3>
+            <p>
+              Écrivez-nous à <strong>contact@phoenixvisionjunior.fr</strong> pour
+              recevoir notre dossier sponsor complet.
+            </p>
+          </div>
+        </div>
       </section>
     </main>
 
     <footer>
-      <p>&copy; 2026 Team Phoenix - RoboCup Junior</p>
+      <div class="container">
+        <p>&copy; 2026 Team Phoenix - RoboCup Junior • Tous droits réservés</p>
+      </div>
     </footer>
   </body>
 </html>
