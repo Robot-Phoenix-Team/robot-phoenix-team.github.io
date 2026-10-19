@@ -580,23 +580,32 @@
       .card-featured {
         border-color: var(--badge-border);
         background: linear-gradient(165deg, rgba(255, 138, 61, 0.08), var(--surface-card));
-        position: relative;
       }
 
-      .card-featured::before {
-        content: "Notre ligue";
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 0.55rem;
+        flex-wrap: wrap;
+      }
+
+      .card-header h3 {
+        margin: 0;
+      }
+
+      .league-tag {
         font-size: 0.72rem;
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 0.5px;
         color: var(--primary);
-        padding: 0.2rem 0.55rem;
+        padding: 0.22rem 0.65rem;
         background: var(--badge-bg);
         border: 1px solid var(--badge-border);
         border-radius: 999px;
+        white-space: nowrap;
       }
 
       .card h3 {
@@ -1274,7 +1283,10 @@
 
           <div class="grid leagues-grid">
             <article class="card card-featured">
-              <h3>Soccer (notre spécialité)</h3>
+              <div class="card-header">
+                <h3>Soccer</h3>
+                <span class="league-tag">Notre ligue</span>
+              </div>
               <p>
                 Un match de football 100% autonome entre deux équipes de deux robots sur terrain dédié.
                 Vitesse, prise de décision tactique en direct, passes et frappes cadrées sans aucune intervention humaine.
