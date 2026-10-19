@@ -164,7 +164,12 @@
         backdrop-filter: blur(14px);
         background: var(--topbar-bg);
         border-bottom: 1px solid var(--stroke);
-        transition: background 0.25s ease, border-color 0.25s ease;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, border-color 0.25s ease;
+        will-change: transform;
+      }
+
+      .topbar.topbar-hidden {
+        transform: translateY(-100%);
       }
 
       .nav {
@@ -620,9 +625,9 @@
         line-height: 1.6;
       }
 
-      /* Major Awards Showcase (Palmarès mis en avant) */
+      /* Major Awards Showcase (Podiums mis en avant) */
       .major-awards-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         margin-bottom: 2rem;
       }
 
@@ -648,10 +653,17 @@
         box-shadow: 0 10px 30px rgba(185, 205, 235, 0.1);
       }
 
-      .award-card-gold {
-        background: linear-gradient(145deg, var(--gold-glow), var(--surface-card));
-        border: 1px solid var(--gold-border);
-        box-shadow: 0 10px 30px rgba(255, 193, 7, 0.12);
+      .mention-tag {
+        display: inline-block;
+        font-size: 0.75rem;
+        color: var(--muted);
+        background: var(--btn-secondary-bg);
+        border: 1px solid var(--stroke);
+        border-radius: 6px;
+        padding: 0.15rem 0.5rem;
+        margin-left: 0.5rem;
+        font-weight: 500;
+        vertical-align: middle;
       }
 
       .award-header {
@@ -749,11 +761,6 @@
       .timeline .result {
         font-weight: 500;
         font-size: 0.96rem;
-      }
-
-      .timeline .result-award {
-        color: #ffb74d;
-        font-weight: 600;
       }
 
       /* Roadmap / Objectives */
@@ -978,7 +985,7 @@
   </head>
   <body>
     <!-- Top Navigation Bar -->
-    <header class="topbar">
+    <header class="topbar" id="topbar">
       <div class="container nav">
         <a href="#" class="brand" aria-label="Accueil Phoenix Vision Junior">
           <img
@@ -1329,8 +1336,8 @@
             l'équipe s'est hissée parmi les formations les plus compétitives du circuit français.
           </p>
 
-          <!-- Titres Majeurs Mis en Avant -->
-          <h3 style="margin-bottom: 1rem;">🏆 Titres & Distinctions Majeurs</h3>
+          <!-- Podiums Majeurs Mis en Avant -->
+          <h3 style="margin-bottom: 1rem;">🥈 Nos Podiums Majeurs</h3>
           <div class="grid major-awards-grid">
             <article class="award-card award-card-silver">
               <div>
@@ -1356,23 +1363,8 @@
                 <h3>Double Vice-Champions IDF</h3>
                 <span class="award-year">Open Île-de-France • 2024 & 2026</span>
                 <p style="margin-top: 0.6rem;">
-                  Finalistes régionaux confirmant la régularité et le très haut niveau technique
+                  Deux finales régionales confirmant la régularité et le très haut niveau technique
                   de l'équipe dans le bassin le plus relevé de France.
-                </p>
-              </div>
-            </article>
-
-            <article class="award-card award-card-gold">
-              <div>
-                <div class="award-header">
-                  <span class="award-badge award-badge-gold">Prix Spécial du Jury</span>
-                  <span class="award-icon">🏆</span>
-                </div>
-                <h3>Prix de l'Enthousiasme</h3>
-                <span class="award-year">Open National France • 2024</span>
-                <p style="margin-top: 0.6rem;">
-                  Distinction officielle décernée par le jury national pour la combativité,
-                  l'ingéniosité technique, le fair-play et l'esprit d'équipe exemplaire de Phoenix.
                 </p>
               </div>
             </article>
@@ -1401,14 +1393,14 @@
             </li>
             <li>
               <span class="year">2024</span>
-              <span class="result result-award">
-                🏆 4ème place & <strong>Prix de l'Enthousiasme</strong> – Open National France
+              <span class="result">
+                🥈 <strong>2ème place (Vice-Champions)</strong> – Open Régional Île-de-France
               </span>
             </li>
             <li>
               <span class="year">2024</span>
               <span class="result">
-                🥈 <strong>2ème place (Vice-Champions)</strong> – Open Régional Île-de-France
+                4ème place – Open National France <span class="mention-tag">Mention : Prix de l'Enthousiasme</span>
               </span>
             </li>
           </ul>
@@ -1597,6 +1589,37 @@
         const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
         applyTheme(currentTheme === "dark" ? "light" : "dark");
       });
+
+      // Auto-hide topbar on scroll down, show on scroll up
+      const topbar = document.getElementById("topbar");
+      let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollThreshold = 10;
+
+      window.addEventListener("scroll", () => {
+        const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Prevent negative values (iOS Safari rubber-band scrolling)
+        if (currentScrollY < 0) return;
+
+        // Always show topbar when near the top of the page
+        if (currentScrollY <= 25) {
+          topbar.classList.remove("topbar-hidden");
+          lastScrollY = currentScrollY;
+          return;
+        }
+
+        // Only react if scroll distance is greater than threshold to prevent jitter
+        if (Math.abs(currentScrollY - lastScrollY) >= scrollThreshold) {
+          if (currentScrollY > lastScrollY && currentScrollY > 70) {
+            // Scrolling DOWN -> hide topbar
+            topbar.classList.add("topbar-hidden");
+          } else if (currentScrollY < lastScrollY) {
+            // Scrolling UP -> reveal topbar
+            topbar.classList.remove("topbar-hidden");
+          }
+          lastScrollY = currentScrollY;
+        }
+      }, { passive: true });
     </script>
   </body>
 </html>
