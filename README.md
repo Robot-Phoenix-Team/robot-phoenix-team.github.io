@@ -1,2 +1,2 @@
-# Phoenix-website
+# Robot Phoenix Team website
 Our website
