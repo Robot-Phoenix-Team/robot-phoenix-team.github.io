@@ -1,0 +1,282 @@
+{
+ "start": "2026-11-24T19:58:42.404Z",
+ "round": 3,
+ "idle": 0,
+ "errors": 0,
+ "status": "open",
+ "history": [
+  {
+   "at": "2026-11-24T20:21:15.066Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 13,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-24T20:28:17.411Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 2,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-24T20:30:18.990Z",
+   "mode": "manual",
+   "status": "open",
+   "fails": 1,
+   "round": 3,
+   "reused": false,
+   "stopHookActive": false
+  }
+ ],
+ "max": 3,
+ "marker": {
+  "page": "index.html",
+  "dir": "/home/voidwalker/Projects/robot-phoenix-team.github.io",
+  "kind": "service",
+  "start": "2026-11-24T19:58:42.404Z",
+  "by": "start.mjs",
+  "url": null
+ },
+ "manual": true,
+ "roundKey": "303dd3d2e9d1d692:26367e45",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "303dd3d2e9d1d692",
+ "page": "index.html",
+ "found": {
+  "fails": [
+   {
+    "check": "edge-right",
+    "where": "nav actions",
+    "msg": "end at x 273.1, the page's right line is 366",
+    "fix": "end it on the .wrap right line",
+    "widths": [
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-right"
+    ],
+    "wheres": [
+     "nav actions"
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "scroll-reveal",
+    "where": "section#saison > div.wrap > p.mo-wh__text \"Une saison ne se joue pas seulement sur \"",
+    "msg": "starts \"color\" (0.2 s) the moment it is scrolled into view (an IntersectionObserver) on span.mo-w:nth-of-type(1) (inside a dealt moment's section, [data-moment]: an enter moment is expected on every kind; its still is judged under reduced motion)",
+    "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-headings",
+    "where": "h2#robot-h \"Sous le capot.\"",
+    "msg": "\"Sous le capot.\" names no product, part, place or section (the one brand line a page may have)",
+    "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-buttons",
+    "where": "div.hero-text.grid > div.hero-copy.span-6 > div.btn-row > a.btn.btn--secondary \"Voir les robots\"",
+    "msg": "\"Voir les robots\" does not start with a verb (book, buy, try, start, get, see...) (and 1 more like it: \"Envoyer le message\")",
+    "fix": "label buttons with a verb and what the visitor gets (\"Book a room\", \"Start free trial\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "hole",
+    "where": "section#ecrire \"Contact et partenariats.\"",
+    "msg": "an empty hole 888x300px inside the section (33% of the screen's height), with content above and below it",
+    "fix": "close the empty space: move the content together, or give the space the visual it lacks",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > a.nav__logo \"Robot Phoenix Team\"",
+    "msg": "\"Robot Phoenix Team\" opens a section headed \"RoboCupJunior Soccer en Île-de-France\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.wrap.nav__bar > nav.nav__links > div.nav__item:nth-of-type(1) > a.nav__link \"L'équipe\"",
+    "msg": "\"L'équipe\" opens a section headed \"Quatre pôles, un robot.\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.wrap.nav__bar > nav.nav__links > div.nav__item:nth-of-type(2) > a.nav__link \"Palmarès\"",
+    "msg": "\"Palmarès\" opens a section headed \"Quatre podiums en trois saisons.\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.wrap.nav__bar > nav.nav__links > div.nav__item:nth-of-type(3) > a.nav__link \"Le robot\"",
+    "msg": "\"Le robot\" opens a section headed \"Sous le capot.\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-current",
+    "where": "header.nav.nav--centre",
+    "msg": "the nav stays on screen with 4 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+    "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "button-contrast",
+    "where": "div.hero-text.grid > div.hero-copy.span-6 > div.btn-row > a.btn.btn--secondary \"Voir les robots\"",
+    "msg": "the button \"Voir les robots\" (#e0dcd3) stands only 1.19:1 off the ground around it: it reads as part of the ground, or as switched off",
+    "fix": "give the button a fill that stands at least 1.5:1 off what is around it, or an outline in the ink",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "empty-area",
+    "where": "section#ecrire \"Contact et partenariats.\"",
+    "msg": "42% of the section is empty: 256px of empty rows between its content, 6% beside content that covers under half the container, in its 720px of rows (WARN over 35%, FAIL over 50%)",
+    "fix": "fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "heading-order",
+    "where": "div.closing__links:nth-of-type(2) > div.grid:nth-of-type(1) > div.span-2.start-7:nth-of-type(2) > h4 \"L'équipe\"",
+    "msg": "\"L'équipe\" is an h4 after an h2: a level is skipped (in the header or footer)",
+    "fix": "step down one level at a time (h1, h2, h3): change the tag, not the look; a footer's column heads are h3",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "action-repeat",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"contacter l'équipe\"",
+    "msg": "\"contacter l'équipe\" shows 2 times on the first screen at 1440px (nav, hero): the nav's button and the hero's; nothing else on the screen may repeat it",
+    "fix": "show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "form-send",
+    "where": "div.wrap > div.grid.grid--top:nth-of-type(1) > div.span-6.start-7:nth-of-type(2) > form.form \"mailto:contact@robot-phoenix.example\"",
+    "msg": "the form opens a mail to contact@robot-phoenix.example: a stand-in until the client gives its form address; list it in the report",
+    "fix": "send the form to the client's address (data-endpoint) and show the confirmation only after it answers; list a mailto stand-in in the report",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#palmares / section#robot",
+    "msg": "uneven space at the edge of a band: 48px outside its edge, 94px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#ecrire / footer#contact",
+    "msg": "uneven space at the edge of a band: 51px outside its edge, 94px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "photo-weight",
+    "where": "div.wrap > div.closing__cta.close--photo > div.close__media > img \"close.webp\"",
+    "msg": "a photograph is 3x or more wider than drawn on the phone, with no srcset: close.webp is 1600px (154 KB) for a 342px frame; on a phone it arrives late and its frame shows only its ground until then",
+    "fix": "give each photograph srcset and sizes (a 800px and a 1600px file), or a smaller file: the frame never shows empty",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-stat-strip",
+    "msg": "stat strip x1",
+    "fix": "a strip only of figures the brief gives (a price, hours, a count); otherwise put each number in the sentence it proves, or leave it out (references/copy-tells.md)",
+    "widths": [],
+    "from": "copy",
+    "where": "copy x1: \"2026 / 2024 / 2025 / ...\"",
+    "exact": false
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 107,
+   "layout": 4
+  }
+ },
+ "open": [
+  {
+   "check": "edge-right",
+   "where": "nav actions",
+   "msg": "end at x 273.1, the page's right line is 366",
+   "fix": "end it on the .wrap right line",
+   "widths": [
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-right"
+   ],
+   "wheres": [
+    "nav actions"
+   ]
+  }
+ ],
+ "waived": [],
+ "warnCount": 18,
+ "at": "2026-11-24T20:30:18.990Z",
+ "openTold": true
+}

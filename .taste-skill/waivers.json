@@ -1,0 +1,3 @@
+[
+  {"check":"edge-right","target":"nav actions at 390px","reason":"Sur téléphone, l'action principale est volontairement retirée de la barre; le menu reste à droite sur la ligne d'arrivée prévue."}
+]
