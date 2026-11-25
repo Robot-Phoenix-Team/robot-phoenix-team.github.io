@@ -1,0 +1,6 @@
+# taste-skill working files (Chrome profiles, reports, gate state)
+.taste-skill/*
+!.taste-skill/plan.md
+
+# source material kept out of the published site (CAD, sponsor dossier, originals)
+photo/
