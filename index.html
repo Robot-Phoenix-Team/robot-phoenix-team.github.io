@@ -156,7 +156,10 @@ main > :is(section, .section) { min-height: calc(var(--h, 1) * 100svh); height: 
   transition: transform .18s ease-out;
   animation: robot-hover 5s ease-in-out infinite;
 }
-.robot-stage__model img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 18px rgba(0,0,0,.5)); }
+.robot-stage__model canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+.robot-stage__fallback { display: none; width: 100%; height: 100%; object-fit: contain; }
+.robot-stage.is-fallback .robot-stage__model canvas { display: none; }
+.robot-stage.is-fallback .robot-stage__fallback { display: block; }
 .robot-stage__tag { position: absolute; z-index: 2; padding: 7px 9px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(17,18,21,.78); color: #fff; font: 600 10px/1 var(--font-text); letter-spacing: .08em; text-transform: uppercase; backdrop-filter: blur(8px); }
 .robot-stage__tag--top { top: 18px; left: 18px; }
 .robot-stage__tag--bottom { right: 18px; bottom: 18px; color: #ffb1ba; }
@@ -328,7 +331,8 @@ main > :is(section, .section) { min-height: calc(var(--h, 1) * 100svh); height: 
           <span class="robot-stage__tag robot-stage__tag--top" aria-hidden="true">CAO officielle</span>
           <span class="robot-stage__tag robot-stage__tag--bottom" aria-hidden="true">LiDAR 360°</span>
           <div class="robot-stage__model">
-            <img src="assets/team/robot-cad-1200.webp" srcset="assets/team/robot-cad-700.webp 700w, assets/team/robot-cad-1200.webp 1200w, assets/team/robot-cad-1600.webp 1600w" sizes="(min-width: 1280px) 628px, (min-width: 768px) 50vw, 100vw" alt="Rendu 3D CAO officiel du robot soccer : base holonome, quatre roues omni, LiDAR RPLidar C1 et Raspberry Pi 4" width="1200" height="800" loading="lazy" data-source="client" data-subject="rendu 3D CAO du robot soccer">
+            <canvas data-robot-canvas aria-label="Modèle 3D interactif du robot soccer"></canvas>
+            <img class="robot-stage__fallback" src="assets/team/robot-cad-1200.webp" alt="Rendu 3D CAO officiel du robot soccer : base holonome, quatre roues omni, LiDAR RPLidar C1 et Raspberry Pi 4" width="1200" height="800" loading="lazy">
           </div>
         </div>
       </div>
@@ -451,6 +455,40 @@ main > :is(section, .section) { min-height: calc(var(--h, 1) * 100svh); height: 
   stage.addEventListener('pointerleave', reset);
   stage.addEventListener('focus', () => { stage.style.setProperty('--ry', '5deg'); });
   stage.addEventListener('blur', reset);
+})();
+
+(() => {
+  const stage = document.querySelector('[data-robot-stage]');
+  const canvas = document.querySelector('[data-robot-canvas]');
+  if (!stage || !canvas) return;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const gl = canvas.getContext('webgl', { antialias: true, alpha: true, powerPreference: 'low-power' });
+  if (!gl) { stage.classList.add('is-fallback'); return; }
+  const vertex = `attribute vec3 aPosition; uniform mat4 uMatrix; void main(){ gl_Position=uMatrix*vec4(aPosition,1.0); }`;
+  const fragment = `precision mediump float; uniform vec3 uColor; uniform float uLight; void main(){ vec3 c=uColor*(.72+uLight*.42); gl_FragColor=vec4(c,1.0); }`;
+  const compile = (type, source) => { const shader=gl.createShader(type); gl.shaderSource(shader,source); gl.compileShader(shader); return shader; };
+  const program=gl.createProgram(); gl.attachShader(program,compile(gl.VERTEX_SHADER,vertex)); gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fragment)); gl.linkProgram(program);
+  if (!gl.getProgramParameter(program,gl.LINK_STATUS)) { stage.classList.add('is-fallback'); return; }
+  gl.useProgram(program);
+  const position=gl.getAttribLocation(program,'aPosition'), matrix=gl.getUniformLocation(program,'uMatrix'), color=gl.getUniformLocation(program,'uColor'), light=gl.getUniformLocation(program,'uLight');
+  const hex = (value) => { const n=parseInt(value.slice(1),16); return [(n>>16&255)/255,(n>>8&255)/255,(n&255)/255]; };
+  const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+  const sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]];
+  const norm=(v)=>{const d=Math.hypot(...v)||1;return v.map(x=>x/d)};
+  const mul=(a,b)=>{const o=new Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++)o[c*4+r]=a[r]*b[c*4]+a[4+r]*b[c*4+1]+a[8+r]*b[c*4+2]+a[12+r]*b[c*4+3];return o};
+  const rotX=(r)=>[1,0,0,0,0,Math.cos(r),Math.sin(r),0,0,-Math.sin(r),Math.cos(r),0,0,0,0,1];
+  const rotY=(r)=>[Math.cos(r),0,-Math.sin(r),0,0,1,0,0,Math.sin(r),0,Math.cos(r),0,0,0,0,1];
+  const perspective=(f,asp,n,far)=>{const t=1/Math.tan(f/2);return [t/asp,0,0,0,0,t,0,0,0,0,(far+n)/(n-far),-1,0,0,(2*far*n)/(n-far),0]};
+  const meshes=[]; let bounds={min:[Infinity,Infinity,Infinity],max:[-Infinity,-Infinity,-Infinity]};
+  if (!gl.getExtension('OES_element_index_uint')) { stage.classList.add('is-fallback'); return; }
+  fetch('assets/team/robot-model.json').then(r=>r.json()).then(data=>{
+    for(const m of data.meshes){ for(let i=0;i<m.p.length;i+=3) for(let k=0;k<3;k++){bounds.min[k]=Math.min(bounds.min[k],m.p[i+k]);bounds.max[k]=Math.max(bounds.max[k],m.p[i+k]);} meshes.push({...m,buffer:gl.createBuffer(),index:gl.createBuffer(),rgb:hex(m.color)}); }
+    const center=bounds.min.map((v,i)=>(v+bounds.max[i])/2), size=Math.max(...bounds.max.map((v,i)=>v-bounds.min[i]));
+    let yaw=.45, pitch=-.28, distance=size*2.05, dragging=false, last=[0,0], auto=!reduced;
+    const resize=()=>{const d=devicePixelRatio||1, r=canvas.getBoundingClientRect();canvas.width=r.width*d;canvas.height=r.height*d;gl.viewport(0,0,canvas.width,canvas.height)};
+    const draw=()=>{resize(); gl.enable(gl.DEPTH_TEST); gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT); if(auto&&!dragging) yaw+=.003; const p=perspective(1.02,canvas.width/canvas.height,.001,100), view=[1,0,0,0,0,1,0,0,0,0,1,0,-center[0],-center[1],-center[2]-distance,1], mat=mul(p,mul(rotX(pitch),mul(rotY(yaw),view))); gl.uniformMatrix4fv(matrix,false,new Float32Array(mat.flat())); for(const m of meshes){gl.bindBuffer(gl.ARRAY_BUFFER,m.buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(m.p),gl.STATIC_DRAW);gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,3,gl.FLOAT,false,0,0);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,m.index);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint32Array(m.i),gl.STATIC_DRAW);gl.uniform3fv(color,m.rgb);gl.uniform1f(light,.65);gl.drawElements(gl.TRIANGLES,m.i.length,gl.UNSIGNED_INT,0)} requestAnimationFrame(draw)};
+    canvas.addEventListener('pointerdown',e=>{dragging=true;auto=false;last=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)}); canvas.addEventListener('pointermove',e=>{if(!dragging)return; yaw+=(e.clientX-last[0])*.012; pitch=Math.max(-1.15,Math.min(.7,pitch+(e.clientY-last[1])*.01));last=[e.clientX,e.clientY]}); canvas.addEventListener('pointerup',()=>{dragging=false}); canvas.addEventListener('wheel',e=>{e.preventDefault();distance=Math.max(size*1.25,Math.min(size*3,distance+e.deltaY*size*.0015))},{passive:false}); window.addEventListener('resize',resize); draw();
+  }).catch(()=>stage.classList.add('is-fallback'));
 })();
 </script>
 <script type="module" src="assets/system.js"></script>
