@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="https://robot-phoenix.team/share.jpg">
 <link rel="icon" href="assets/logo-phoenix-vision-junior.svg" type="image/svg+xml">
 <link rel="alternate icon" href="favicon.ico">
-<meta name="theme-color" content="#f4efe6">
+<meta name="theme-color" content="#ffffff">
 <link rel="canonical" href="https://robot-phoenix.team/">
 <meta name="site-kind" content="other">
 <meta name="page-type" content="service">
@@ -41,10 +41,10 @@
   font-display: swap;
 }
 :root {
-  --p-bg: #f4efe6; --p-surface: #e9e1d4; --p-ink: #1a1a1a; --p-muted: #5c5750;
-  --p-accent: #cb2d43; --p-accent-ink: #f4efe6; --p-action: #cb2d43; --p-action-ink: #f4efe6;
-  --p-inv-bg: #1a1a1a; --p-inv-surface: #262626; --p-inv-ink: #f4efe6; --p-inv-muted: #999691;
-  --p-inv-accent: #cb2d43; --p-inv-accent-ink: #f4efe6; --p-inv-action: #cb2d43; --p-inv-action-ink: #f4efe6;
+  --p-bg: #ffffff; --p-surface: #f4f4f5; --p-ink: #18181b; --p-muted: #52525b;
+  --p-accent: #cb2d43; --p-accent-ink: #ffffff; --p-action: #cb2d43; --p-action-ink: #ffffff;
+  --p-inv-bg: #111215; --p-inv-surface: #1c1d22; --p-inv-ink: #ffffff; --p-inv-muted: #9e9ea0;
+  --p-inv-accent: #cb2d43; --p-inv-accent-ink: #ffffff; --p-inv-action: #cb2d43; --p-inv-action-ink: #ffffff;
   --font-display: "Schibsted Grotesk", system-ui, sans-serif;
   --font-text: "Schibsted Grotesk", system-ui, sans-serif;
   --display-weight: 400;
@@ -54,43 +54,68 @@
 }
 #contact .footer__col a[href^="mailto:"] { overflow-wrap: anywhere; }
 #contact .close__media > picture { position: absolute; inset: 0; }
-#contact .close__media img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: var(--pos, 50% 50%); }
-.btn--secondary { border: 1px solid rgba(26, 26, 26, 0.3); }
-html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3); }
-.nav__logo { white-space: nowrap; }
+#contact .close__media img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: var(--pos, 50% 45%); }
+.btn--secondary { border: 1px solid rgba(24, 24, 27, 0.2); }
+html[data-buttons="tonal"] .btn--secondary { border-color: rgba(24, 24, 27, 0.2); }
+.nav__logo { white-space: nowrap; display: inline-flex; align-items: center; gap: var(--s-2); }
+.nav__logo img { flex-shrink: 0; }
 @media (min-width: 1024px) and (max-width: 1279px) { .nav__logo { font-size: 20px; } }
 .nav__link[aria-current="location"]::after { content: ""; position: absolute; left: var(--s-3); right: var(--s-3); bottom: -2px; height: 2px; border-radius: 2px; background: currentColor; }
 .shot { padding: 0; border: 0; }
-.team-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-6); }
-.team-member { display: grid; gap: var(--s-3); align-content: start; }
-.team-member img { width: 100%; max-width: 156px; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-md); background: var(--surface); }
+
+/* Dynamic sizing & section flow */
+main > :is(section, .section) { min-height: calc(var(--h, 1) * 100svh); height: auto; }
+@media (min-width: 1280px) and (min-height: 850px) {
+  main > :is(section, .section) { height: calc(var(--h, 1) * 100svh); }
+}
+
+@media (max-width: 1024px) {
+  .hero { --hgap: 32px; --hpadb: 36px; }
+}
+
+#palmares .frame {
+  --ratio: 70%;
+  width: 100%;
+}
+#palmares .frame__img {
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+/* Team portraits - preserve full photo */
+.team-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-4); }
+.team-member { display: grid; gap: var(--s-2); align-content: start; }
+.team-member img { width: 100%; max-width: 136px; aspect-ratio: 3 / 4; object-fit: contain; border-radius: var(--r-md); background: var(--surface); padding: 4px; box-sizing: border-box; }
 .team-id { display: grid; gap: 2px; }
 .team-name { font: 500 var(--t-card)/1.2 var(--font-text); letter-spacing: -0.01em; }
-.team-shot { display: none; margin: var(--s-5) 0 0; }
-.team-shot img { width: 100%; aspect-ratio: 5.2 / 1; object-fit: cover; border-radius: var(--r-md); background: var(--surface); }
-@media (min-width: 1024px) { .team-shot { display: block; } }
 .team-role { font-size: var(--t-small); color: var(--muted); }
+.team-shot { display: block; margin: var(--s-4) 0 0; }
+.team-shot picture { display: block; width: 100%; }
+.team-shot img { width: 100%; aspect-ratio: 7 / 1; max-height: 120px; object-fit: cover; border-radius: var(--r-md); background: var(--surface); }
+
+/* Gallery items - true aspect ratio & no chopping */
 .gallery-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-5) var(--gutter); }
-.gallery-item { display: grid; gap: var(--s-3); align-content: start; margin: 0; }
-.gallery-item img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-md); background: var(--surface); }
+.gallery-item { margin: 0; }
+.gallery-item img { width: 100%; aspect-ratio: 4 / 5; object-fit: contain; border-radius: var(--r-md); background: var(--surface); padding: 6px; box-sizing: border-box; }
 .statement .wrap { justify-content: flex-start; }
+
 @media (max-width: 1023px) {
-  .team-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .team-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: var(--s-4); }
   .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .team-shot img { aspect-ratio: 4 / 1; max-height: 140px; }
 }
 @media (max-width: 639px) {
-  #robot { padding-top: var(--padb); scroll-margin-top: var(--nav); }
   html { scrollbar-width: none; }
   html::-webkit-scrollbar { display: none; }
   html[data-buttons="tonal"] .btn-row > .btn--secondary { background: none; border-color: transparent; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--line-strong); }
   .nav:not(.is-open) .nav__actions { display: none; }
   .nav:not(.is-open) .nav__actions + .nav__toggle { margin-left: auto; }
-  .nav__toggle { border-color: rgba(26, 26, 26, 0.28); }
+  .nav__toggle { border-color: rgba(24, 24, 27, 0.28); }
   .team-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-3); row-gap: var(--s-4); }
+  .team-member img { aspect-ratio: 3 / 4; padding: 2px; }
   .gallery-grid { gap: var(--s-4) var(--s-3); }
-  .team-member--mentor { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; column-gap: var(--s-3); }
-  .team-member--mentor img { grid-column: 1; }
-  .team-member--mentor .team-id { grid-column: 2 / -1; }
+  .team-shot { margin-top: var(--s-4); }
+  .team-shot img { aspect-ratio: 2 / 1; width: 100%; height: auto; border-radius: var(--r-md); }
 }
 </style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
@@ -108,7 +133,7 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
 <header class="nav nav--centre">
   <div class="wrap nav__bar">
     <a class="skip-link" href="#top">Aller au contenu</a>
-    <a class="nav__logo" href="#top"><img src="assets/logo-fond-noir.svg" alt="" width="24" height="24">Robot Phoenix Team</a>
+    <a class="nav__logo" href="#top"><img src="assets/logo-phoenix.svg" alt="" width="26" height="26">Robot Phoenix Team</a>
     <nav class="nav__links" aria-label="Sommaire">
       <div class="nav__item"><a class="nav__link" href="#poles">Les pôles</a></div>
       <div class="nav__item"><a class="nav__link" href="#palmares">Podiums</a></div>
@@ -117,7 +142,7 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
       <div class="nav__item"><a class="nav__link" href="#galerie">Galerie</a></div>
     </nav>
     <div class="nav__actions">
-      <a class="btn btn--primary" href="mailto:contact@robot-phoenix.team">Contacter</a>
+      <a class="btn btn--primary" href="mailto:contact@robot-phoenix.team">Contacter l'équipe</a>
     </div>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
       <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -139,12 +164,12 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
           </div>
           <dl class="hero-facts">
             <div><dt>Podiums</dt><dd>3, régionaux et nationaux</dd></div>
-            <div><dt>Saisons</dt><dd>3, depuis 2024</dd></div>
+            <div><dt>Équipe</dt><dd>6 jeunes et 1 mentor</dd></div>
             <div><dt>Fabrication</dt><dd>100 % en interne</dd></div>
           </dl>
         </div>
         <div class="hero-visual frame shot span-6 start-7">
-          <img class="frame__img" src="assets/team/hero.webp" srcset="assets/team/hero-700.webp 700w, assets/team/hero.webp 1360w" sizes="(min-width: 640px) 1360px, 100vw" alt="Six jeunes de l'équipe, deux robots brandis au-dessus des têtes, devant la bannière Ligue Soccer" width="1360" height="765" style="--ly-pos: 50% 42%" fetchpriority="high" data-source="client" data-subject="l'équipe avec deux robots après une compétition">
+          <img class="frame__img" src="assets/team/hero-full.webp" srcset="assets/team/hero-full-700.webp 700w, assets/team/hero-full.webp 1360w" sizes="(min-width: 640px) 1360px, 100vw" alt="Six jeunes de l'équipe, deux robots brandis au-dessus des têtes, devant la bannière Ligue Soccer" width="1360" height="1020" style="object-position: center 25%;" fetchpriority="high" data-source="client" data-subject="l'équipe avec deux robots après une compétition">
           </div>
       </div>
     </div>
@@ -153,7 +178,7 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
   <section class="section" id="poles" aria-labelledby="poles-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="poles-h">Quatre pôles, un robot.</h2>
+        <h2 id="poles-h">4 pôles d'ingénierie pour le robot.</h2>
         <p>Chaque pôle travaille une partie du même robot, de la caméra à la tactique de match.</p>
       </div>
       <div class="grid grid--top">
@@ -163,7 +188,7 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
           <li><span class="rows__name">Électronique et PCB</span><p>Les cartes, le LiDAR et l'alimentation sont câblés et testés.</p></li>
           <li><span class="rows__name">Tactique 2 vs 2 et radio</span><p>Deux robots se parlent et se partagent le terrain.</p></li>
         </ul>
-        <div class="frame shot span-6 start-7" style="--ratio: 75%">
+        <div class="frame shot span-6 start-7" style="--ratio: 65%">
           <img class="frame__img" src="assets/team/poles.webp" srcset="assets/team/poles-700.webp 700w, assets/team/poles.webp 1360w" sizes="(min-width: 1280px) 628px, (min-width: 768px) 50vw, 100vw" alt="L'équipe autour du terrain vert, penchée sur un robot en réglage" width="1360" height="881" loading="lazy" data-source="client" data-subject="l'équipe réglant un robot sur le terrain">
         </div>
       </div>
@@ -173,7 +198,7 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
   <section class="section" id="palmares" aria-labelledby="palmares-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="palmares-h">Trois podiums en trois saisons.</h2>
+        <h2 id="palmares-h">Trois podiums en trois saisons de compétition.</h2>
         <p>Les résultats de l'équipe depuis 2024, et l'objectif fixé pour 2027.</p>
       </div>
       <div class="grid grid--top">
@@ -184,8 +209,8 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
           <li><span class="rows__name">Open d'Île-de-France</span><span class="rows__value">2025</span><p>4e de l'Open régional.</p></li>
           <li><span class="rows__name">Objectif</span><span class="rows__value">2027</span><p>Titre national et qualification internationale.</p></li>
         </ul>
-        <div class="frame shot span-6 start-7" style="--ratio: 84%">
-          <img class="frame__img" src="assets/team/contact.webp" srcset="assets/team/contact-700.webp 700w, assets/team/contact.webp 1120w" sizes="(min-width: 1280px) 628px, (min-width: 768px) 50vw, 100vw" alt="Six jeunes de l'équipe en t-shirts bleus et casquettes, avec leurs sacs, sur un quai de tramway" width="1120" height="1493" style="object-position: 38% 50%" loading="lazy" data-source="client" data-subject="l'équipe en déplacement, sur le quai">
+        <div class="frame shot span-6 start-7">
+          <img class="frame__img" src="assets/team/contact.webp" srcset="assets/team/contact-700.webp 700w, assets/team/contact.webp 1120w" sizes="(min-width: 1280px) 628px, (min-width: 768px) 50vw, 100vw" alt="Six jeunes de l'équipe en t-shirts bleus et casquettes, avec leurs sacs, sur un quai de tramway" width="1120" height="1493" style="object-position: center 20%;" loading="lazy" data-source="client" data-subject="l'équipe en déplacement, sur le quai">
         </div>
       </div>
     </div>
@@ -194,7 +219,7 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
   <section class="section ground-inverse" id="robot" aria-labelledby="robot-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="robot-h">Le robot sous le capot.</h2>
+        <h2 id="robot-h">6 pièces sous le capot du robot.</h2>
         <p>Six pièces font le robot : la caméra, la base, le LiDAR, les capteurs de ligne, le calculateur et la batterie.</p>
       </div>
       <div class="grid grid--top">
@@ -207,7 +232,7 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
           <li><span class="rows__name">Batterie LiPo</span><p>Elle alimente le robot pendant un match.</p></li>
         </ul>
         <div class="frame shot span-6 start-7" style="--ratio: 66.7%">
-          <img class="frame__img" src="assets/team/robot-1200.webp" srcset="assets/team/robot-700.webp 700w, assets/team/robot-1200.webp 1200w" sizes="(min-width: 1280px) 628px, (min-width: 768px) 50vw, 100vw" alt="Le robot à quatre roues omni sur le terrain vert, vu de près" width="1200" height="800" loading="lazy" data-source="client" data-subject="le robot sur le terrain, vu de près">
+          <img class="frame__img" src="assets/team/robot-cad-1200.webp" srcset="assets/team/robot-cad-700.webp 700w, assets/team/robot-cad-1200.webp 1200w, assets/team/robot-cad-1600.webp 1600w" sizes="(min-width: 1280px) 628px, (min-width: 768px) 50vw, 100vw" alt="Rendu 3D CAO officiel du robot soccer : base holonome, quatre roues omni, LiDAR RPLidar C1 et Raspberry Pi 4" width="1200" height="800" loading="lazy" data-source="client" data-subject="rendu 3D CAO du robot soccer">
         </div>
       </div>
     </div>
@@ -216,7 +241,7 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
   <section class="section" id="equipe" aria-labelledby="equipe-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="equipe-h">L'équipe.</h2>
+        <h2 id="equipe-h">L'équipe du lycée Notre-Dame de Boulogne.</h2>
         <p>Six élèves et leur mentor, du lycée Notre-Dame de Boulogne, en Île-de-France : du dessin des pièces au match.</p>
       </div>
       <ul class="team-grid">
@@ -229,7 +254,10 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
         <li class="team-member team-member--mentor"><img src="assets/team/stephane.webp" alt="Stéphane, mentor de l'équipe" width="153" height="228" loading="lazy"><div class="team-id"><span class="team-name">Stéphane</span><p class="team-role">Mentor</p></div></li>
       </ul>
       <div class="team-shot">
-        <img src="assets/team/equipe-band-1600.webp" srcset="assets/team/equipe-band-900.webp 900w, assets/team/equipe-band-1600.webp 1600w" sizes="(min-width: 1280px) 1360px, 100vw" alt="L'équipe réunie sur une terrasse en bois, sacs et robots posés près d'elle" width="1600" height="308" loading="lazy">
+        <picture>
+          <source media="(max-width: 639px)" srcset="assets/team/equipe-shot-700.webp">
+          <img src="assets/team/equipe-band-1600.webp" srcset="assets/team/equipe-band-900.webp 900w, assets/team/equipe-band-1600.webp 1600w" sizes="(min-width: 1280px) 1360px, 100vw" alt="L'équipe réunie sur une terrasse en bois, sacs et robots posés près d'elle" width="1600" height="308" loading="lazy">
+        </picture>
       </div>
     </div>
   </section>
@@ -237,14 +265,14 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
   <section class="section ground-surface" id="galerie" aria-labelledby="galerie-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="galerie-h">Galerie de l'équipe.</h2>
+        <h2 id="galerie-h">Galerie photo de l'équipe et des matchs.</h2>
         <p>Quatre images, du trophée de 2024 à la table de match de 2026.</p>
       </div>
       <div class="gallery-grid">
-        <div class="gallery-item"><img src="assets/galerie/match-720.webp" srcset="assets/galerie/match-400.webp 400w, assets/galerie/match-720.webp 720w" sizes="(min-width: 1024px) 24vw, 50vw" alt="Deux robots sur le terrain vert, entourés de mains qui les repositionnent" width="720" height="900" loading="lazy"></div>
-        <div class="gallery-item"><img src="assets/galerie/atelier-1200.webp" srcset="assets/galerie/atelier-400.webp 400w, assets/galerie/atelier-700.webp 700w, assets/galerie/atelier-1200.webp 1200w" sizes="(min-width: 1024px) 24vw, 50vw" alt="Des élèves penchés sur un robot posé sur une table, dans un hall de compétition" width="1200" height="1500" loading="lazy"></div>
-        <div class="gallery-item"><img src="assets/galerie/code-640.webp" srcset="assets/galerie/code-400.webp 400w, assets/galerie/code-640.webp 640w" sizes="(min-width: 1024px) 24vw, 50vw" alt="Deux élèves devant un ordinateur portable, un robot posé sur la table" width="640" height="800" loading="lazy"></div>
-        <div class="gallery-item"><img src="assets/galerie/trophee-1200.webp" srcset="assets/galerie/trophee-400.webp 400w, assets/galerie/trophee-700.webp 700w, assets/galerie/trophee-1200.webp 1200w" sizes="(min-width: 1024px) 24vw, 50vw" alt="Le trophée RoboCupJunior Île-de-France 2024" width="1200" height="1500" loading="lazy"></div>
+        <div class="gallery-item"><img src="assets/galerie/match-720.webp" srcset="assets/galerie/match-720.webp 720w, assets/galerie/match-1200.webp 1200w" sizes="(min-width: 1024px) 340px, 50vw" alt="Deux robots sur le terrain vert, entourés de mains qui les repositionnent" width="720" height="540" loading="lazy"></div>
+        <div class="gallery-item"><img src="assets/galerie/atelier-700.webp" srcset="assets/galerie/atelier-700.webp 700w, assets/galerie/atelier-1200.webp 1200w" sizes="(min-width: 1024px) 340px, 50vw" alt="Des élèves penchés sur un robot posé sur une table, dans un hall de compétition" width="720" height="540" loading="lazy"></div>
+        <div class="gallery-item"><img src="assets/galerie/code-720.webp" srcset="assets/galerie/code-720.webp 720w, assets/galerie/code-1200.webp 1200w" sizes="(min-width: 1024px) 340px, 50vw" alt="Deux élèves devant un ordinateur portable, un robot posé sur la table" width="720" height="540" loading="lazy"></div>
+        <div class="gallery-item"><img src="assets/galerie/trophee-700.webp" srcset="assets/galerie/trophee-700.webp 700w, assets/galerie/trophee-1200.webp 1200w" sizes="(min-width: 1024px) 340px, 50vw" alt="Le trophée RoboCupJunior Île-de-France 2024" width="720" height="540" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -273,7 +301,7 @@ html[data-buttons="tonal"] .btn--secondary { border-color: rgba(26, 26, 26, 0.3)
     <div class="closing__links">
       <div class="grid">
         <div class="span-4 stack-4">
-          <a class="nav__logo" href="#top"><img src="assets/logo-fond-noir.svg" alt="" width="24" height="24">Robot Phoenix Team</a>
+          <a class="nav__logo" href="#top"><img src="assets/logo-phoenix-inv.svg" alt="" width="26" height="26">Robot Phoenix Team</a>
           <p class="footer__lede">Une équipe de robot soccer du lycée Notre-Dame de Boulogne, en Île-de-France.</p>
         </div>
         <div class="span-2 start-7 footer__col"><h3 class="t-card">L'équipe</h3><ul><li><a href="#poles">Les pôles</a></li><li><a href="#palmares">Palmarès</a></li><li><a href="#equipe">L'équipe</a></li><li><a href="#galerie">Galerie</a></li></ul></div>
