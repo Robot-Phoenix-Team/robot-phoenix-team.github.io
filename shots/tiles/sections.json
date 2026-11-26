@@ -1,0 +1,302 @@
+{
+ "url": "http://127.0.0.1:5300/index.html",
+ "views": {
+  "desktop": {
+   "width": 1440,
+   "height": 900,
+   "navH": 72,
+   "scrollHeight": 7200,
+   "screens": 8,
+   "sections": [
+    {
+     "n": 1,
+     "tag": "section",
+     "id": "",
+     "cls": "hero hero--split is-still is-entered",
+     "top": 0,
+     "h": 900,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "desktop-sec-01-a.jpg",
+       "scrollY": 0
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "tag": "section",
+     "id": "poles",
+     "cls": "section",
+     "top": 900,
+     "h": 900,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "desktop-sec-02-a.jpg",
+       "scrollY": 900
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "tag": "section",
+     "id": "palmares",
+     "cls": "section",
+     "top": 1800,
+     "h": 900,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "desktop-sec-03-a.jpg",
+       "scrollY": 1800
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "tag": "section",
+     "id": "robot",
+     "cls": "section ground-inverse",
+     "top": 2700,
+     "h": 900,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "desktop-sec-04-a.jpg",
+       "scrollY": 2700
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "tag": "section",
+     "id": "equipe",
+     "cls": "section",
+     "top": 3600,
+     "h": 900,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "desktop-sec-05-a.jpg",
+       "scrollY": 3600
+      }
+     ]
+    },
+    {
+     "n": 6,
+     "tag": "section",
+     "id": "galerie",
+     "cls": "section ground-surface",
+     "top": 4500,
+     "h": 900,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "desktop-sec-06-a.jpg",
+       "scrollY": 4500
+      }
+     ]
+    },
+    {
+     "n": 7,
+     "tag": "section",
+     "id": "saison",
+     "cls": "section statement mo-wh",
+     "top": 5400,
+     "h": 900,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "desktop-sec-07-a.jpg",
+       "scrollY": 5400
+      }
+     ]
+    },
+    {
+     "n": 8,
+     "tag": "footer",
+     "id": "contact",
+     "cls": "footer closing footer--dark ground-inverse",
+     "top": 6300,
+     "h": 900,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "desktop-sec-08-a.jpg",
+       "scrollY": 6300
+      }
+     ]
+    }
+   ],
+   "consoleErrors": []
+  },
+  "mobile": {
+   "width": 390,
+   "height": 844,
+   "navH": 56,
+   "scrollHeight": 8278,
+   "screens": 9.81,
+   "sections": [
+    {
+     "n": 1,
+     "tag": "section",
+     "id": "",
+     "cls": "hero hero--split is-still is-entered",
+     "top": 0,
+     "h": 844,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "mobile-sec-01-a.jpg",
+       "scrollY": 0
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "tag": "section",
+     "id": "poles",
+     "cls": "section",
+     "top": 844,
+     "h": 1004,
+     "hScreens": 1.19,
+     "offGrid": 160,
+     "tiles": [
+      {
+       "file": "mobile-sec-02-a.jpg",
+       "scrollY": 844
+      },
+      {
+       "file": "mobile-sec-02-b.jpg",
+       "scrollY": 1004
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "tag": "section",
+     "id": "palmares",
+     "cls": "section",
+     "top": 1848,
+     "h": 1078,
+     "hScreens": 1.28,
+     "offGrid": 234,
+     "tiles": [
+      {
+       "file": "mobile-sec-03-a.jpg",
+       "scrollY": 1848
+      },
+      {
+       "file": "mobile-sec-03-b.jpg",
+       "scrollY": 2082
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "tag": "section",
+     "id": "robot",
+     "cls": "section ground-inverse",
+     "top": 2926,
+     "h": 1126,
+     "hScreens": 1.33,
+     "offGrid": 282,
+     "tiles": [
+      {
+       "file": "mobile-sec-04-a.jpg",
+       "scrollY": 2926
+      },
+      {
+       "file": "mobile-sec-04-b.jpg",
+       "scrollY": 3208
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "tag": "section",
+     "id": "equipe",
+     "cls": "section",
+     "top": 4052,
+     "h": 850,
+     "hScreens": 1.01,
+     "offGrid": 6,
+     "tiles": [
+      {
+       "file": "mobile-sec-05-a.jpg",
+       "scrollY": 4052
+      },
+      {
+       "file": "mobile-sec-05-b.jpg",
+       "scrollY": 4058
+      }
+     ]
+    },
+    {
+     "n": 6,
+     "tag": "section",
+     "id": "galerie",
+     "cls": "section ground-surface",
+     "top": 4902,
+     "h": 844,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "mobile-sec-06-a.jpg",
+       "scrollY": 4902
+      }
+     ]
+    },
+    {
+     "n": 7,
+     "tag": "section",
+     "id": "saison",
+     "cls": "section statement mo-wh",
+     "top": 5746,
+     "h": 844,
+     "hScreens": 1,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "mobile-sec-07-a.jpg",
+       "scrollY": 5746
+      }
+     ]
+    },
+    {
+     "n": 8,
+     "tag": "footer",
+     "id": "contact",
+     "cls": "footer closing footer--dark ground-inverse",
+     "top": 6590,
+     "h": 1688,
+     "hScreens": 2,
+     "offGrid": 0,
+     "tiles": [
+      {
+       "file": "mobile-sec-08-a.jpg",
+       "scrollY": 6590
+      },
+      {
+       "file": "mobile-sec-08-b.jpg",
+       "scrollY": 7434
+      }
+     ]
+    }
+   ],
+   "consoleErrors": []
+  }
+ },
+ "at": "2026-11-26T18:17:13.737Z"
+}
