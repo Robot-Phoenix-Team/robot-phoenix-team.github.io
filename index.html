@@ -118,7 +118,7 @@ main > :is(section, .section) { min-height: calc(var(--h, 1) * 100svh); height: 
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,.14), transparent 23%), linear-gradient(115deg, transparent 42%, rgba(203,45,67,.14) 50%, transparent 58%);
+  background: radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,.14), transparent 23%), linear-gradient(115deg, transparent 42%, rgba(203,45,67,.12) 50%, transparent 58%);
   mix-blend-mode: screen;
 }
 .robot-stage__grid {
@@ -139,6 +139,7 @@ main > :is(section, .section) { min-height: calc(var(--h, 1) * 100svh); height: 
   box-shadow: 0 0 30px rgba(203,45,67,.25);
   animation: robot-scan 4.5s linear infinite;
 }
+.robot-stage__scan { display: none; }
 .robot-stage__scan::after {
   content: "";
   position: absolute;
@@ -156,15 +157,21 @@ main > :is(section, .section) { min-height: calc(var(--h, 1) * 100svh); height: 
   transition: transform .18s ease-out;
   animation: robot-hover 5s ease-in-out infinite;
 }
-.robot-stage__model canvas { width: 100%; height: 100%; display: block; touch-action: none; }
-.robot-stage__fallback { display: none; width: 100%; height: 100%; object-fit: contain; }
-.robot-stage.is-fallback .robot-stage__model canvas { display: none; }
-.robot-stage.is-fallback .robot-stage__fallback { display: block; }
+.robot-stage__model canvas { display: none; }
+.robot-stage__fallback { display: block; width: 100%; height: 100%; object-fit: contain; animation: robot-cad-float 7s ease-in-out infinite; filter: drop-shadow(0 26px 20px rgba(0,0,0,.46)); }
+.robot-stage__model::after { content: ""; position: absolute; inset: 12% 16%; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; transform: rotateX(70deg); box-shadow: 0 0 0 24px rgba(255,255,255,.025); pointer-events: none; }
+.robot-stage__beam { position: absolute; z-index: 1; top: -20%; bottom: -20%; left: -35%; width: 18%; transform: rotate(20deg); background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent); filter: blur(8px); animation: robot-beam 6s ease-in-out infinite; pointer-events: none; }
+.robot-stage__marker { position: absolute; z-index: 3; display: flex; align-items: center; gap: 7px; color: rgba(255,255,255,.78); font: 600 10px/1 var(--font-text); letter-spacing: .08em; text-transform: uppercase; }
+.robot-stage__marker::before { content: ""; display: block; width: 6px; height: 6px; border: 1px solid #cb2d43; border-radius: 50%; box-shadow: 0 0 0 5px rgba(203,45,67,.12); animation: robot-pulse 2.4s ease-in-out infinite; }
+.robot-stage__marker--camera { top: 29%; right: 13%; }
+.robot-stage__marker--base { bottom: 28%; left: 12%; }
 .robot-stage__tag { position: absolute; z-index: 2; padding: 7px 9px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(17,18,21,.78); color: #fff; font: 600 10px/1 var(--font-text); letter-spacing: .08em; text-transform: uppercase; backdrop-filter: blur(8px); }
 .robot-stage__tag--top { top: 18px; left: 18px; }
 .robot-stage__tag--bottom { right: 18px; bottom: 18px; color: #ffb1ba; }
 @keyframes robot-hover { 0%,100% { transform: rotateX(var(--rx)) rotateY(var(--ry)) translateY(0); } 50% { transform: rotateX(var(--rx)) rotateY(var(--ry)) translateY(-8px); } }
-@keyframes robot-scan { to { transform: translate(-50%,-50%) rotateX(68deg) rotateZ(360deg); } }
+@keyframes robot-cad-float { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(0,-7px,0) scale(1.025); } }
+@keyframes robot-beam { 0%,18% { left: -35%; opacity: 0; } 35%,65% { opacity: 1; } 82%,100% { left: 120%; opacity: 0; } }
+@keyframes robot-pulse { 0%,100% { opacity: .5; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.15); } }
 @media (max-width: 1023px) { .robot-stage { min-height: 0; } }
 @media (max-width: 639px) {
   .robot-stage { min-height: 0; aspect-ratio: 1.5; }
@@ -174,7 +181,7 @@ main > :is(section, .section) { min-height: calc(var(--h, 1) * 100svh); height: 
   #robot .rows li { padding-block: 8px; }
   #robot .rows li p { margin-top: 3px; font-size: 12px; line-height: 1.25; }
 }
-@media (prefers-reduced-motion: reduce) { .robot-stage__scan, .robot-stage__model { animation: none; } .robot-stage__model { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .robot-stage__scan, .robot-stage__model, .robot-stage__fallback, .robot-stage__beam, .robot-stage__marker::before { animation: none; } .robot-stage__model { transition: none; } }
 
 /* Team portraits - preserve full photo */
 .team-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-4); }
@@ -327,9 +334,10 @@ main > :is(section, .section) { min-height: calc(var(--h, 1) * 100svh); height: 
         </ul>
         <div class="robot-stage span-6 start-7" data-robot-stage tabindex="0" aria-label="Vue interactive du rendu 3D CAO officiel du robot soccer">
           <span class="robot-stage__grid" aria-hidden="true"></span>
-          <span class="robot-stage__scan" aria-hidden="true"></span>
+          <span class="robot-stage__beam" aria-hidden="true"></span>
           <span class="robot-stage__tag robot-stage__tag--top" aria-hidden="true">CAO officielle</span>
-          <span class="robot-stage__tag robot-stage__tag--bottom" aria-hidden="true">LiDAR 360°</span>
+          <span class="robot-stage__marker robot-stage__marker--camera" aria-hidden="true">Caméra</span>
+          <span class="robot-stage__marker robot-stage__marker--base" aria-hidden="true">Base holonome</span>
           <div class="robot-stage__model">
             <canvas data-robot-canvas aria-label="Modèle 3D interactif du robot soccer"></canvas>
             <img class="robot-stage__fallback" src="assets/team/robot-cad-1200.webp" alt="Rendu 3D CAO officiel du robot soccer : base holonome, quatre roues omni, LiDAR RPLidar C1 et Raspberry Pi 4" width="1200" height="800" loading="lazy">
@@ -462,6 +470,8 @@ main > :is(section, .section) { min-height: calc(var(--h, 1) * 100svh); height: 
   const canvas = document.querySelector('[data-robot-canvas]');
   if (!stage || !canvas) return;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  stage.classList.add('is-fallback');
+  return;
   const gl = canvas.getContext('webgl', { antialias: true, alpha: true, powerPreference: 'low-power' });
   if (!gl) { stage.classList.add('is-fallback'); return; }
   const vertex = `attribute vec3 aPosition; uniform mat4 uMatrix; void main(){ gl_Position=uMatrix*vec4(aPosition,1.0); }`;
